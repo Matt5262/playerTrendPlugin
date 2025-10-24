@@ -57,6 +57,8 @@ public class PlayerTrendPlugin extends JavaPlugin {
                         UNIQUE(uuid, date)
                     )
                 """);
+                // tripe quotes is for multi lines and for visuals
+                // id INTEGER PRIMARY KEY AUTOINCREMENT means it makes a colum named id and is autoincrement with 1, 2, 3 etc.
             }
 
             getLogger().info("Database initialized.");

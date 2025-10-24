@@ -29,10 +29,15 @@ public class TrendCommand implements CommandExecutor {
 
         String sql = """
             WITH last_week AS (
+            -- make a temporary table
                 SELECT date, COUNT(DISTINCT uuid) AS players
+                -- select the date column and then count all distinct uuids as players meaning the result number is under a column "players"
                 FROM daily_logins
+                -- you do allat with data from daily logins
                 WHERE date >= date('now', '-7 day')
+                -- and you only do it in all the rows that have the date greater or equal to seven days since now
                 GROUP BY date
+                -- Collapse all rows for the same day into one row per day. - chatGPT
             ),
             prev_week AS (
                 SELECT date, COUNT(DISTINCT uuid) AS players
@@ -42,6 +47,7 @@ public class TrendCommand implements CommandExecutor {
             )
             SELECT
                 (SELECT AVG(players) FROM last_week) AS avg_last,
+                -- select and find the average of the column players that was made in the temporary table called last_week and save the answer as avg_last? Possibly means put the answer under a column named avg_last
                 (SELECT AVG(players) FROM prev_week) AS avg_prev;
         """;
 
