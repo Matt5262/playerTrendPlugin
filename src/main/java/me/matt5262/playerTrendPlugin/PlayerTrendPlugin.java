@@ -39,7 +39,13 @@ public class PlayerTrendPlugin extends JavaPlugin {
     }
 
     private void setupDatabase() {
+        // does not auto close because it is a normal try, not a try-with-resources
         try {
+            // if not data folder exists (/playerTrendPlugin) and try to create the folder but if it does not then throw exception.
+            if (!getDataFolder().exists() && !getDataFolder().mkdirs()) {
+                throw new SQLException("Failed to create plugin data directory: " + getDataFolder());
+            }
+            // creates or opens the connection to (/playerdata.db) basically you set connection to a path. Since connection has the Connection type, it can do connection stuff now.
             connection = DriverManager.getConnection("jdbc:sqlite:" + getDataFolder() + "/playerdata.db");
 
             try (Statement stmt = connection.createStatement()) {

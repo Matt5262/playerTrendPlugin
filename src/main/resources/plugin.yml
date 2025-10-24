@@ -5,3 +5,7 @@ api-version: '1.21'
 authors: [ Matt_5262 ]
 description: Its supposed to log player stuff
 website: https://discord.com/invite/JdzQMaNmKw
+commands:
+  trend:
+    usage: /<command>
+    description: See the current player count trend.
