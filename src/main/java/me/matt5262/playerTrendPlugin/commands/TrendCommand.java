@@ -51,6 +51,11 @@ public class TrendCommand implements CommandExecutor {
                 (SELECT AVG(players) FROM prev_week) AS avg_prev;
         """;
 
+        // 🧠 Step 1 — What is a ResultSet?
+        //When you run a SQL query like SELECT AVG(players) ..., Java gives you a ResultSet object.
+        //Think of it like a little “table in memory” with your query results.
+        //You can read each column and row from it.
+
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
