@@ -29,15 +29,15 @@ public class TrendCommand implements CommandExecutor {
 
         String sql = """
             WITH last_week AS (
-            -- make a temporary table
+            -- make a temporary table called last_week
                 SELECT date, COUNT(DISTINCT uuid) AS players
-                -- select the date column and then count all distinct uuids as players meaning the result number is under a column "players"
-                FROM daily_logins
-                -- you do allat with data from daily logins
-                WHERE date >= date('now', '-7 day')
-                -- and you only do it in all the rows that have the date greater or equal to seven days since now
-                GROUP BY date
-                -- Collapse all rows for the same day into one row per day. - chatGPT
+                                     -- in last_week show date and players, players is the number of unique uuids there are.
+                                     -- group by date groups so all the same dates are grouped together,
+                                     -- then it counts how many unique uuids there are inside each group,
+                                     -- that is the players column.
+                                     FROM daily_logins
+                                     WHERE date >= date('now', '-7 day')
+                                     GROUP BY date;
             ),
             prev_week AS (
                 SELECT date, COUNT(DISTINCT uuid) AS players

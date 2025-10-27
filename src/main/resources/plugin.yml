@@ -1,5 +1,5 @@
 name: playerTrendPlugin
-version: '0.1.0'
+version: '1.0.0'
 main: me.matt5262.playerTrendPlugin.PlayerTrendPlugin
 api-version: '1.21'
 authors: [ Matt_5262 ]
