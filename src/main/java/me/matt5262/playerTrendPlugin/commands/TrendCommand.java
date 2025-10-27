@@ -31,13 +31,10 @@ public class TrendCommand implements CommandExecutor {
             WITH last_week AS (
             -- make a temporary table called last_week
                 SELECT date, COUNT(DISTINCT uuid) AS players
-                                     -- in last_week show date and players, players is the number of unique uuids there are.
-                                     -- group by date groups so all the same dates are grouped together,
-                                     -- then it counts how many unique uuids there are inside each group,
-                                     -- that is the players column.
-                                     FROM daily_logins
-                                     WHERE date >= date('now', '-7 day')
-                                     GROUP BY date;
+                FROM daily_logins
+                WHERE date >= date('now', '-7 day')
+                GROUP BY date;
+                -- merge dates into one data per row instead of the same date on multiple rows
             ),
             prev_week AS (
                 SELECT date, COUNT(DISTINCT uuid) AS players
