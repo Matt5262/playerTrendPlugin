@@ -29,12 +29,10 @@ public class TrendCommand implements CommandExecutor {
 
         String sql = """
             WITH last_week AS (
-            -- make a temporary table called last_week
                 SELECT date, COUNT(DISTINCT uuid) AS players
                 FROM daily_logins
                 WHERE date >= date('now', '-7 day')
                 GROUP BY date;
-                -- merge dates into one data per row instead of the same date on multiple rows
             ),
             prev_week AS (
                 SELECT date, COUNT(DISTINCT uuid) AS players
@@ -44,14 +42,8 @@ public class TrendCommand implements CommandExecutor {
             )
             SELECT
                 (SELECT AVG(players) FROM last_week) AS avg_last,
-                -- select and find the average of the column players that was made in the temporary table called last_week and save the answer as avg_last? Possibly means put the answer under a column named avg_last
                 (SELECT AVG(players) FROM prev_week) AS avg_prev;
         """;
-
-        // 🧠 Step 1 — What is a ResultSet?
-        //When you run a SQL query like SELECT AVG(players) ..., Java gives you a ResultSet object.
-        //Think of it like a little “table in memory” with your query results.
-        //You can read each column and row from it.
 
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
